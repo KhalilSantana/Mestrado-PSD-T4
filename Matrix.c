@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <iostream>
+
 
 #define MATRIX_ROWS 3
 #define MATRIX_COLUMNS 3
@@ -16,13 +16,19 @@ void printMatrix(int matrix[MATRIX_ROWS][MATRIX_COLUMNS]) {
 void matrixMult(int matrix_A[MATRIX_ROWS][MATRIX_COLUMNS],
                 int matrix_B[MATRIX_ROWS][MATRIX_COLUMNS],
                 int matrix_C[MATRIX_ROWS][MATRIX_COLUMNS]) {
-    for (int i = 0; i < MATRIX_ROWS; i++) {
-        for (int j = 0; j < MATRIX_COLUMNS; j++) {
+    int i=0;
+    while(i<MATRIX_ROWS) {
+        int j=0;
+        while(j<MATRIX_COLUMNS) {
             matrix_C[i][j] = 0;
-            for (int k = 0; k < MATRIX_COLUMNS; k++) {
+            int k=0;
+            while(k<MATRIX_COLUMNS) {
                 matrix_C[i][j] += matrix_A[i][k] * matrix_B[k][j];
+                k++;
             }
+            j++;
         }
+        i++;
     }
 }
 
