@@ -4,9 +4,9 @@ use ieee.numeric_std.all;
 
 entity MatrixRegister_tb is
    generic (
-      p_MATRIX_ELEMENT_SIZE : integer := 8;
-      p_MATRIX_ROWS         : integer := 3;
-      p_MATRIX_COLS         : integer := 3
+      p_WIDTH : integer := 8;
+      p_ROWS  : integer := 3;
+      p_COLS  : integer := 3
    );
 end entity;
 architecture tb of MatrixRegister_tb is
@@ -18,17 +18,17 @@ architecture tb of MatrixRegister_tb is
    b"0010_0000" & b"0010_0001" & b"0010_0010";
    component MatrixRegister is
       generic (
-         p_MATRIX_ELEMENT_SIZE : integer := 8;
-         p_MATRIX_ROWS         : integer := 3;
-         p_MATRIX_COLS         : integer := 3
+         p_WIDTH : integer := 8;
+         p_ROWS  : integer := 3;
+         p_COLS  : integer := 3
       );
       port (
          i_CLK      : in std_logic;
          i_RST      : in std_logic;
          i_ADDR_ROW : in std_logic_vector(1 downto 0);
          i_ADDR_COL : in std_logic_vector(1 downto 0);
-         i_D        : in std_logic_vector(p_MATRIX_ELEMENT_SIZE - 1 * 9 downto 0);
-         o_Q        : out std_logic_vector(p_MATRIX_ELEMENT_SIZE - 1 downto 0)
+         i_D        : in std_logic_vector(p_WIDTH * p_ROWS * p_COLS - 1 downto 0);
+         o_Q        : out std_logic_vector(p_WIDTH - 1 downto 0)
       );
    end component;
 begin
