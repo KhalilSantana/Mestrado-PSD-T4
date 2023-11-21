@@ -12,7 +12,7 @@ end entity;
 
 architecture tb of Datapath_tb is
    signal w_CLK, w_RST, w_RST_ACC            : std_logic := '1';
-   signal w_MAT_C                            : std_logic_vector(p_WIDTH - 1 downto 0);
+   signal w_MAT_C                            : std_logic_vector(p_ROWS * p_COLS * p_WIDTH - 1 downto 0);
    signal w_MAT_A_ADDR_ROW, w_MAT_B_ADDR_ROW : std_logic_vector(1 downto 0)         := (others => '0');
    signal w_MAT_A_ADDR_COL, w_MAT_B_ADDR_COL : std_logic_vector(1 downto 0)         := (others => '0');
    signal w_MAT_A                            : std_logic_vector(8 * 9 - 1 downto 0) :=
