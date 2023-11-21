@@ -101,7 +101,7 @@ begin
       -- @@@@ ROW 3
       wait for 1.5 ps;
       w_ADDR_ROW <= b"10";
-      w_ADDR_COL <= b"10";
+      w_ADDR_COL <= b"00";
       wait for 1 ps;
       assert w_OUTPUT_ELEMENT = b"0010_0000"
       report "mat(2,0)!= 0010_0000"
@@ -109,7 +109,7 @@ begin
 
       wait for 1.5 ps;
       w_ADDR_ROW <= b"10";
-      w_ADDR_COL <= b"10";
+      w_ADDR_COL <= b"01";
       wait for 1 ps;
       assert w_OUTPUT_ELEMENT = b"0010_0001"
       report "mat(2,1)!= 0010_0001"
