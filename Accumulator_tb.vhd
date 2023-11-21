@@ -41,14 +41,12 @@ begin
    begin
       wait for 1 ps;
       w_RST <= '0';
-      wait for 1.5 ps;
-      w_D <= b"0000_0001";
-      wait for 1.5 ps;
+      w_D <= b"1111_1111";
       assert w_Q = b"0000_0001"
       report "0+1 != 1"
          severity error;
 
-      w_D <= b"0000_0010";
+      w_D <= b"1111_1111";
       wait for 1.5 ps;
       assert w_Q = b"0000_0011"
       report "1+2 != 3"
