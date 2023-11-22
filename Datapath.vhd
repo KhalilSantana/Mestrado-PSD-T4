@@ -17,7 +17,7 @@ entity Datapath is
       i_MAT_A_ADDR_ROW : in std_logic_vector(1 downto 0);
       i_MAT_C_ADDR_COL : in std_logic_vector(1 downto 0);
       i_MAT_B_ADDR_ROW : in std_logic_vector(1 downto 0);
-      o_MAT_C          : out std_logic_vector(p_WIDTH - 1 downto 0)
+      o_MAT_C          : out std_logic_vector(p_ROWS * p_COLS * p_WIDTH - 1 downto 0)
    );
 end entity;
 architecture rtl of Datapath is
@@ -26,7 +26,7 @@ architecture rtl of Datapath is
    signal w_ELE_B0, w_ELE_B1, w_ELE_B2                : std_logic_vector(p_WIDTH - 1 downto 0);
    signal w_MULT_tmp_A0, w_MULT_tmp_A1, w_MULT_tmp_A2 : std_logic_vector(15 downto 0);
    signal w_MULT_A0, w_MULT_A1, w_MULT_A2             : std_logic_vector(p_WIDTH - 1 downto 0);
-   signal w_Acc_in                                    : std_logic_vector(p_WIDTH - 1 downto 0);
+   signal w_ADDERS_OUT                                : std_logic_vector(p_WIDTH - 1 downto 0);
    signal w_MAT_B_TRANSPOSED                          : std_logic_vector(p_ROWS * p_COLS * p_WIDTH - 1 downto 0);
    component MatrixRegister is
       generic (
@@ -109,14 +109,14 @@ begin
    w_MULT_A1     <= w_MULT_tmp_A1(7 downto 0);
    w_MULT_A2     <= w_MULT_tmp_A2(7 downto 0);
 
-   o_MAT_C <= std_logic_vector(unsigned(w_MULT_A0) + unsigned(w_MULT_A1) + unsigned(w_MULT_A2));
+   w_ADDERS_OUT <= std_logic_vector(unsigned(w_MULT_A0) + unsigned(w_MULT_A1) + unsigned(w_MULT_A2));
 
-   -- u_MAT_C : MatrixRegisterSingle port map(
-   --    i_CLK      => i_CLK,
-   --    i_RST      => i_RST,
-   --    i_ADDR_ROW => i_MAT_A_ADDR_ROW,
-   --    i_ADDR_COL => i_MAT_C_ADDR_COL,
-   --    i_D        => w_Acc_in,
-   --    o_Q        => o_MAT_C
-   -- );
+   u_MAT_C : MatrixRegisterSingle port map(
+      i_CLK      => i_CLK,
+      i_RST      => i_RST,
+      i_ADDR_ROW => i_MAT_A_ADDR_ROW,
+      i_ADDR_COL => i_MAT_C_ADDR_COL,
+      i_D        => w_ADDERS_OUT,
+      o_Q        => o_MAT_C
+   );
 end architecture;

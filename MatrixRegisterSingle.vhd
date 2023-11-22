@@ -26,7 +26,8 @@ begin
       if i_RST = '1' then
          matrix <= (others => (others => "00000000"));
       elsif
-         rising_edge(i_CLK) then
+         -- TODO Make this work with rising_edge
+         falling_edge(i_CLK) then
          matrix(to_integer(unsigned(i_ADDR_ROW)),
          to_integer(unsigned(i_ADDR_COL)))
          <= i_D;
