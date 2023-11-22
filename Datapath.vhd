@@ -9,14 +9,15 @@ entity Datapath is
       p_COLS  : integer := 3
    );
    port (
+      -- Control pins
       i_CLK : in std_logic;
       i_RST : in std_logic;
-      -- i_RST_ACC        : in std_logic;
+      i_MAT_A_ADDR_ROW : in std_logic_vector(1 downto 0);
+      i_MAT_B_ADDR_ROW : in std_logic_vector(1 downto 0);
+      i_MAT_C_ADDR_COL : in std_logic_vector(1 downto 0);
+      -- Data pins
       i_MAT_A          : in std_logic_vector(p_ROWS * p_COLS * p_WIDTH - 1 downto 0);
       i_MAT_B          : in std_logic_vector(p_ROWS * p_COLS * p_WIDTH - 1 downto 0);
-      i_MAT_A_ADDR_ROW : in std_logic_vector(1 downto 0);
-      i_MAT_C_ADDR_COL : in std_logic_vector(1 downto 0);
-      i_MAT_B_ADDR_ROW : in std_logic_vector(1 downto 0);
       o_MAT_C          : out std_logic_vector(p_ROWS * p_COLS * p_WIDTH - 1 downto 0)
    );
 end entity;
