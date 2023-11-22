@@ -7,6 +7,10 @@ vcom -2008 *.vhd
 # add wave -radix unsigned *
 # run 20 ps
 
+# vsim MatrixRegisterSingle_tb
+# add wave *
+# run 20 ps
+
 vsim Datapath_tb
 add wave -radix unsigned *
 add wave -radix unsigned -position end  sim:/datapath_tb/u_Datapath/u_MAT_A/o_Q
@@ -21,7 +25,6 @@ add wave -radix unsigned -position end  sim:/datapath_tb/u_Datapath/w_MULT_tmp_A
 add wave -radix unsigned -position end  sim:/datapath_tb/u_Datapath/w_MULT_tmp_A1
 add wave -radix unsigned -position end  sim:/datapath_tb/u_Datapath/w_MULT_tmp_A2
 add wave -radix unsigned -position end  sim:/datapath_tb/u_Datapath/w_Acc_in
-add wave -radix unsigned -position end  sim:/datapath_tb/u_Datapath/w_Acc_out
 # add wave -radix unsigned -position end  sim:/datapath_tb/u_Datapath/u_MAT_B/o_Q
 # add wave -radix unsigned -position end  sim:/datapath_tb/u_Datapath/wo_MULT
 # add wave -radix unsigned -position end  sim:/datapath_tb/u_Datapath/u_ACC/i_D
