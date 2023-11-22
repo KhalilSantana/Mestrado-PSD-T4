@@ -11,6 +11,17 @@ vsim Datapath_tb
 add wave -radix unsigned *
 add wave -radix unsigned -position end  sim:/datapath_tb/u_Datapath/u_MAT_A/o_Q
 add wave -radix unsigned -position end  sim:/datapath_tb/u_Datapath/u_MAT_B/o_Q
+add wave -radix unsigned -position end  sim:/datapath_tb/u_Datapath/w_ELE_A0
+add wave -radix unsigned -position end  sim:/datapath_tb/u_Datapath/w_ELE_A1
+add wave -radix unsigned -position end  sim:/datapath_tb/u_Datapath/w_ELE_A2
+add wave -radix unsigned -position end  sim:/datapath_tb/u_Datapath/w_ELE_B0
+add wave -radix unsigned -position end  sim:/datapath_tb/u_Datapath/w_ELE_B1
+add wave -radix unsigned -position end  sim:/datapath_tb/u_Datapath/w_ELE_B2
+add wave -radix unsigned -position end  sim:/datapath_tb/u_Datapath/w_MULT_tmp_A0
+add wave -radix unsigned -position end  sim:/datapath_tb/u_Datapath/w_MULT_tmp_A1
+add wave -radix unsigned -position end  sim:/datapath_tb/u_Datapath/w_MULT_tmp_A2
+add wave -radix unsigned -position end  sim:/datapath_tb/u_Datapath/w_Acc_in
+add wave -radix unsigned -position end  sim:/datapath_tb/u_Datapath/w_Acc_out
 # add wave -radix unsigned -position end  sim:/datapath_tb/u_Datapath/u_MAT_B/o_Q
 # add wave -radix unsigned -position end  sim:/datapath_tb/u_Datapath/wo_MULT
 # add wave -radix unsigned -position end  sim:/datapath_tb/u_Datapath/u_ACC/i_D
