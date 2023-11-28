@@ -10,17 +10,19 @@ entity Datapath is
    );
    port (
       -- Control pins
-      i_CLK : in std_logic;
-      i_RST : in std_logic;
+      i_CLK            : in std_logic;
+      i_RST            : in std_logic;
       i_MAT_A_ADDR_ROW : in std_logic_vector(1 downto 0);
       i_MAT_B_ADDR_ROW : in std_logic_vector(1 downto 0);
       -- Data pins
-      i_MAT_A          : in std_logic_vector(p_ROWS * p_COLS * p_WIDTH - 1 downto 0);
-      i_MAT_B          : in std_logic_vector(p_ROWS * p_COLS * p_WIDTH - 1 downto 0);
-      o_MAT_C          : out std_logic_vector(p_ROWS * p_COLS * p_WIDTH - 1 downto 0)
+      i_ENABLE_MAT_A_COUNTER : in std_logic;
+      i_MAT_A : in std_logic_vector(p_ROWS * p_COLS * p_WIDTH - 1 downto 0);
+      i_MAT_B : in std_logic_vector(p_ROWS * p_COLS * p_WIDTH - 1 downto 0);
+      o_MAT_C : out std_logic_vector(p_ROWS * p_COLS * p_WIDTH - 1 downto 0)
    );
 end entity;
 architecture rtl of Datapath is
+   signal w_MAT_A_ROW                                 : std_logic_vector(1 downto 0);
    signal w_ELE_A, w_ELE_B                            : std_logic_vector(p_WIDTH * p_ROWS - 1 downto 0);
    signal w_ELE_A0, w_ELE_A1, w_ELE_A2                : std_logic_vector(p_WIDTH - 1 downto 0);
    signal w_ELE_B0, w_ELE_B1, w_ELE_B2                : std_logic_vector(p_WIDTH - 1 downto 0);
@@ -76,7 +78,21 @@ architecture rtl of Datapath is
          o_MAT_TRANSPOSED : out std_logic_vector(71 downto 0)
       );
    end component;
+   component RoundCounter is port (
+      i_CLK            : in std_logic;
+      i_RST            : in std_logic; -- TODO: remove?
+      i_ENABLE_COUNTER : in std_logic;
+      o_COUNT          : out std_logic_vector
+      );
+   end component;
 begin
+   u_MAT_A_ROW : RoundCounter port map(
+      i_CLK            => i_CLK,
+      i_RST            => i_RST, -- TODO: uncouple this
+      i_ENABLE_COUNTER => i_ENABLE_MAT_A_COUNTER,
+      o_COUNT          => w_MAT_A_ROW
+   );
+   --
    w_ELE_A0 <= w_ELE_A(23 downto 16);
    w_ELE_A1 <= w_ELE_A(15 downto 8);
    w_ELE_A2 <= w_ELE_A(7 downto 0);
@@ -87,7 +103,7 @@ begin
    u_MAT_A : MatrixRegister port map(
       i_CLK      => i_CLK,
       i_RST      => i_RST,
-      i_ADDR_ROW => i_MAT_A_ADDR_ROW,
+      i_ADDR_ROW => w_MAT_A_ROW,
       i_D        => i_MAT_A,
       o_Q        => w_ELE_A
    );
