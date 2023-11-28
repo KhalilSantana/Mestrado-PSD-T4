@@ -116,7 +116,7 @@ begin
       i_CLK      => i_CLK,
       i_RST      => i_RST,
       i_ADDR_ROW => i_MAT_A_ADDR_ROW,
-      i_ADDR_COL => i_MAT_C_ADDR_COL,
+      i_ADDR_COL => i_MAT_B_ADDR_ROW,
       i_D        => w_ADDERS_OUT,
       o_Q        => o_MAT_C
    );
