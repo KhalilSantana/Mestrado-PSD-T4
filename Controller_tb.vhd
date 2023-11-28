@@ -14,9 +14,7 @@ begin
       port map(
          i_CLK            => w_CLK,
          i_RST            => w_RST,
-         o_RDY            => RDY,
-         o_MAT_A_ADDR_ROW => MAT_A_ADDR_ROW,
-         o_MAT_B_ADDR_ROW => MAT_B_ADDR_ROW
+         o_RDY            => RDY
       );
 
    -- Clock process

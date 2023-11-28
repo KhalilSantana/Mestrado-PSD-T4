@@ -30,8 +30,6 @@ vsim Toplevel_tb
 add wave *
 add wave -position end  sim:/toplevel_tb/u_Toplevel/u_Controller/w_NEXT
 add wave -position end  sim:/toplevel_tb/u_Toplevel/u_Controller/r_STATE
-add wave -radix unsigned -position end  sim:/toplevel_tb/u_Toplevel/u_Controller/o_MAT_A_ADDR_ROW
-add wave -radix unsigned -position end  sim:/toplevel_tb/u_Toplevel/u_Controller/o_MAT_B_ADDR_ROW
 add wave -radix unsigned -position end  sim:/toplevel_tb/u_Toplevel/u_Datapath/w_ELE_A0
 add wave -radix unsigned -position end  sim:/toplevel_tb/u_Toplevel/u_Datapath/w_ELE_A1
 add wave -radix unsigned -position end  sim:/toplevel_tb/u_Toplevel/u_Datapath/w_ELE_A2
@@ -46,6 +44,7 @@ add wave -radix unsigned -position end  sim:/toplevel_tb/u_Toplevel/u_Datapath/w
 add wave -radix unsigned -position end  sim:/toplevel_tb/u_Toplevel/u_Datapath/w_MULT_A2
 add wave -radix unsigned -position end  sim:/toplevel_tb/u_Toplevel/u_Datapath/w_ADDERS_OUT
 add wave -position end  sim:/toplevel_tb/u_Toplevel/u_Controller/o_ENABLE_MAT_A_COUNTER
+add wave -position end  sim:/toplevel_tb/u_Toplevel/u_Controller/o_ENABLE_MAT_B_COUNTER
 add wave -radix unsigned -position end  sim:/toplevel_tb/u_Toplevel/u_Datapath/w_MAT_A_ROW
 add wave -radix unsigned -position end  sim:/toplevel_tb/u_Toplevel/u_Datapath/w_MAT_B_ROW
 

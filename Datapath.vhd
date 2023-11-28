@@ -12,11 +12,9 @@ entity Datapath is
       -- Control pins
       i_CLK            : in std_logic;
       i_RST            : in std_logic;
-      i_MAT_A_ADDR_ROW : in std_logic_vector(1 downto 0);
-      i_MAT_B_ADDR_ROW : in std_logic_vector(1 downto 0);
-      -- Data pins
       i_ENABLE_MAT_A_COUNTER : in std_logic;
       i_ENABLE_MAT_B_COUNTER : in std_logic;
+      -- Data pins
       i_MAT_A : in std_logic_vector(p_ROWS * p_COLS * p_WIDTH - 1 downto 0);
       i_MAT_B : in std_logic_vector(p_ROWS * p_COLS * p_WIDTH - 1 downto 0);
       o_MAT_C : out std_logic_vector(p_ROWS * p_COLS * p_WIDTH - 1 downto 0)
@@ -137,8 +135,8 @@ begin
    u_MAT_C : MatrixRegisterSingle port map(
       i_CLK      => i_CLK,
       i_RST      => i_RST,
-      i_ADDR_ROW => i_MAT_A_ADDR_ROW,
-      i_ADDR_COL => i_MAT_B_ADDR_ROW,
+      i_ADDR_ROW => w_MAT_A_ROW,
+      i_ADDR_COL => w_MAT_B_ROW,
       i_D        => w_ADDERS_OUT,
       o_Q        => o_MAT_C
    );

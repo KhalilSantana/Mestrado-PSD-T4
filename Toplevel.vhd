@@ -29,11 +29,9 @@ architecture rtl of Toplevel is
          i_CLK : in std_logic;
          i_RST : in std_logic;
          --
-         o_RDY                  : out std_logic;
          o_ENABLE_MAT_A_COUNTER : out std_logic                    := '0';
          o_ENABLE_MAT_B_COUNTER : out std_logic                    := '0';
-         o_MAT_A_ADDR_ROW       : out std_logic_vector(1 downto 0) := "00";
-         o_MAT_B_ADDR_ROW       : out std_logic_vector(1 downto 0) := "00"
+         o_RDY                  : out std_logic
       );
    end component;
    component Datapath is
@@ -46,11 +44,9 @@ architecture rtl of Toplevel is
          -- Control pins
          i_CLK            : in std_logic;
          i_RST            : in std_logic;
-         i_MAT_A_ADDR_ROW : in std_logic_vector(1 downto 0);
-         i_MAT_B_ADDR_ROW : in std_logic_vector(1 downto 0);
-         -- Data pins
          i_ENABLE_MAT_A_COUNTER : in std_logic;
          i_ENABLE_MAT_B_COUNTER : in std_logic;
+         -- Data pins
          i_MAT_A : in std_logic_vector(p_ROWS * p_COLS * p_WIDTH - 1 downto 0);
          i_MAT_B : in std_logic_vector(p_ROWS * p_COLS * p_WIDTH - 1 downto 0);
          o_MAT_C : out std_logic_vector(p_ROWS * p_COLS * p_WIDTH - 1 downto 0)
@@ -63,16 +59,12 @@ begin
       o_RDY => o_RDY,
       --
       o_ENABLE_MAT_A_COUNTER => w_ENABLE_MAT_A_COUNTER,
-      o_ENABLE_MAT_B_COUNTER => w_ENABLE_MAT_B_COUNTER,
-      o_MAT_A_ADDR_ROW => w_MAT_A_ADDR_ROW,
-      o_MAT_B_ADDR_ROW => w_MAT_B_ADDR_ROW
+      o_ENABLE_MAT_B_COUNTER => w_ENABLE_MAT_B_COUNTER
    );
    u_Datapath : Datapath port map (
       i_CLK => i_CLK,
       i_RST => i_RST,
       --
-      i_MAT_A_ADDR_ROW => w_MAT_A_ADDR_ROW,
-      i_MAT_B_ADDR_ROW => w_MAT_B_ADDR_ROW,
       i_ENABLE_MAT_A_COUNTER => w_ENABLE_MAT_A_COUNTER,
       i_ENABLE_MAT_B_COUNTER => w_ENABLE_MAT_B_COUNTER,
       -- Data pins
