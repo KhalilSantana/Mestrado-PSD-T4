@@ -46,4 +46,4 @@ add wave -radix unsigned -position end  sim:/toplevel_tb/u_Toplevel/u_Datapath/w
 add wave -radix unsigned -position end  sim:/toplevel_tb/u_Toplevel/u_Datapath/w_MAT_A_ROW
 add wave -radix unsigned -position end  sim:/toplevel_tb/u_Toplevel/u_Datapath/w_MAT_B_ROW
 
-run 20 ps
+run 30 ps

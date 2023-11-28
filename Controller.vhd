@@ -9,15 +9,13 @@ entity Controller is
       i_START               : in std_logic;
       i_FINISHED_ALL_ROUNDS : in std_logic;
       o_ENABLE_MAT_COUNTER  : out std_logic := '0';
-      o_RDY                 : out std_logic
+      o_RDY                 : out std_logic := '0'
    );
 end entity;
 architecture rtl of Controller is
    type t_STATE is (
       s_START,
-      s_ELE_0, s_ELE_1, s_ELE_2,
-      s_ELE_3, s_ELE_4, s_ELE_5,
-      s_ELE_6, s_ELE_7, s_ELE_8,
+      s_RUNNING,
       s_END
    );
    signal w_NEXT  : t_STATE; -- next state
@@ -33,27 +31,22 @@ begin
       end if;
    end process;
    -- Next State Function
-   process (r_STATE, i_START, i_RST)
+   process (r_STATE, i_START, i_FINISHED_ALL_ROUNDS, i_RST)
    begin
       case r_STATE is
          when s_START =>
             if i_START = '1' then
-               w_NEXT <= s_ELE_0;
+               w_NEXT <= s_RUNNING;
             else
                w_NEXT <= s_START;
             end if;
             --
-         when s_ELE_0 => w_NEXT <= s_ELE_1;
-         when s_ELE_1 => w_NEXT <= s_ELE_2;
-         when s_ELE_2 => w_NEXT <= s_ELE_3;
-            --
-         when s_ELE_3 => w_NEXT <= s_ELE_4;
-         when s_ELE_4 => w_NEXT <= s_ELE_5;
-         when s_ELE_5 => w_NEXT <= s_ELE_6;
-            --
-         when s_ELE_6 => w_NEXT <= s_ELE_7;
-         when s_ELE_7 => w_NEXT <= s_ELE_8;
-         when s_ELE_8 => w_NEXT <= s_END;
+         when s_RUNNING =>
+            if i_FINISHED_ALL_ROUNDS = '1' then
+               w_NEXT <= s_END;
+            else
+               w_NEXT <= s_RUNNING;
+            end if;
             --
          when s_END =>
             if i_RST = '1' then
@@ -67,5 +60,7 @@ begin
    o_ENABLE_MAT_COUNTER <=
       '0' when (r_STATE = s_START) or (r_STATE = s_END) else
       '1';
-   o_RDY <= i_FINISHED_ALL_ROUNDS;
+   o_RDY <=
+      '1' when (r_STATE = s_END) else
+      '0';
 end architecture;
