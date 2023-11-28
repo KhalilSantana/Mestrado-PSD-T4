@@ -56,6 +56,6 @@ begin
    process
    begin
       w_RST <= '0';
-      wait for 100 ps;
+      wait for 20 ps;
    end process;
 end architecture;

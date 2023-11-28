@@ -8,6 +8,7 @@ entity Controller is
       --
       o_RDY                  : out std_logic;
       o_ENABLE_MAT_A_COUNTER : out std_logic                    := '0';
+      o_ENABLE_MAT_B_COUNTER : out std_logic                    := '0';
       o_MAT_A_ADDR_ROW       : out std_logic_vector(1 downto 0) := "00";
       o_MAT_B_ADDR_ROW       : out std_logic_vector(1 downto 0) := "00"
    );
@@ -61,8 +62,11 @@ begin
       "10" when (r_STATE = s_ELE_6) or (r_STATE = s_ELE_7) or (r_STATE = s_ELE_8) else
       "00";
    o_ENABLE_MAT_A_COUNTER <=
-      '1' WHEN (r_STATE = s_ELE_2) or (r_STATE = s_ELE_5) or (r_STATE = s_ELE_8)  else
+      '1' when (r_STATE = s_ELE_2) or (r_STATE = s_ELE_5) or (r_STATE = s_ELE_8) else
       '0';
+   o_ENABLE_MAT_B_COUNTER <=
+      '0' when (r_STATE = s_START) or (r_STATE = s_END) else
+      '1';
    o_MAT_B_ADDR_ROW <=
       "00" when (r_STATE = s_ELE_0) or (r_STATE = s_ELE_3) or (r_STATE = s_ELE_6) else
       "01" when (r_STATE = s_ELE_1) or (r_STATE = s_ELE_4) or (r_STATE = s_ELE_7) else
