@@ -5,9 +5,9 @@ entity Controller_tb is
 end entity Controller_tb;
 
 architecture tb of Controller_tb is
-   signal w_CLK, w_RST                                   : std_logic := '0';
-   signal RDY                                            : std_logic;
-   signal MAT_A_ADDR_ROW, MAT_B_ADDR_ROW, MAT_C_ADDR_COL : std_logic_vector(1 downto 0);
+   signal w_CLK, w_RST                   : std_logic := '0';
+   signal RDY                            : std_logic;
+   signal MAT_A_ADDR_ROW, MAT_B_ADDR_ROW : std_logic_vector(1 downto 0);
 begin
    -- Instantiate the Controller
    u_Controller : entity work.Controller
@@ -16,8 +16,7 @@ begin
          i_RST            => w_RST,
          o_RDY            => RDY,
          o_MAT_A_ADDR_ROW => MAT_A_ADDR_ROW,
-         o_MAT_B_ADDR_ROW => MAT_B_ADDR_ROW,
-         o_MAT_C_ADDR_COL => MAT_C_ADDR_COL
+         o_MAT_B_ADDR_ROW => MAT_B_ADDR_ROW
       );
 
    -- Clock process

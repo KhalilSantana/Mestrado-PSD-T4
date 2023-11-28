@@ -32,7 +32,6 @@ add wave -position end  sim:/toplevel_tb/u_Toplevel/u_Controller/w_NEXT
 add wave -position end  sim:/toplevel_tb/u_Toplevel/u_Controller/r_STATE
 add wave -radix unsigned -position end  sim:/toplevel_tb/u_Toplevel/u_Controller/o_MAT_A_ADDR_ROW
 add wave -radix unsigned -position end  sim:/toplevel_tb/u_Toplevel/u_Controller/o_MAT_B_ADDR_ROW
-add wave -radix unsigned -position end  sim:/toplevel_tb/u_Toplevel/u_Controller/o_MAT_C_ADDR_COL
 add wave -radix unsigned -position end  sim:/toplevel_tb/u_Toplevel/u_Datapath/w_ELE_A0
 add wave -radix unsigned -position end  sim:/toplevel_tb/u_Toplevel/u_Datapath/w_ELE_A1
 add wave -radix unsigned -position end  sim:/toplevel_tb/u_Toplevel/u_Datapath/w_ELE_A2

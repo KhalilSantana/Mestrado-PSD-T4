@@ -8,8 +8,7 @@ entity Controller is
       --
       o_RDY            : out std_logic;
       o_MAT_A_ADDR_ROW : out std_logic_vector(1 downto 0) := "00";
-      o_MAT_B_ADDR_ROW : out std_logic_vector(1 downto 0) := "00";
-      o_MAT_C_ADDR_COL : out std_logic_vector(1 downto 0) := "00"
+      o_MAT_B_ADDR_ROW : out std_logic_vector(1 downto 0) := "00"
    );
 end entity;
 architecture rtl of Controller is
@@ -64,11 +63,6 @@ begin
       "00" when (r_STATE = s_ELE_0) or (r_STATE = s_ELE_3) or (r_STATE = s_ELE_6) else
       "01" when (r_STATE = s_ELE_1) or (r_STATE = s_ELE_4) or (r_STATE = s_ELE_7) else
       "10" when (r_STATE = s_ELE_2) or (r_STATE = s_ELE_5) or (r_STATE = s_ELE_8) else
-      "00";
-   o_MAT_C_ADDR_COL <=
-      "00" when (r_STATE = s_ELE_0) else
-      "01" when (r_STATE = s_ELE_1) else
-      "10" when (r_STATE = s_ELE_2) else
       "00";
    o_RDY <= '1' when r_STATE = s_END else
       '0';

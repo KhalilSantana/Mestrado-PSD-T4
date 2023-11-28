@@ -11,10 +11,10 @@ entity Datapath_tb is
 end entity;
 
 architecture tb of Datapath_tb is
-   signal w_CLK, w_RST                                         : std_logic := '1';
-   signal w_MAT_C                                              : std_logic_vector(p_ROWS * p_COLS * p_WIDTH - 1 downto 0);
-   signal w_MAT_A_ADDR_ROW, w_MAT_B_ADDR_ROW, w_MAT_C_ADDR_COL : std_logic_vector(1 downto 0)         := (others => '0');
-   signal w_MAT_A                                              : std_logic_vector(8 * 9 - 1 downto 0) :=
+   signal w_CLK, w_RST                       : std_logic := '1';
+   signal w_MAT_C                            : std_logic_vector(p_ROWS * p_COLS * p_WIDTH - 1 downto 0);
+   signal w_MAT_A_ADDR_ROW, w_MAT_B_ADDR_ROW : std_logic_vector(1 downto 0)         := (others => '0');
+   signal w_MAT_A                            : std_logic_vector(8 * 9 - 1 downto 0) :=
    b"0000_0000" & b"0000_0001" & b"0000_0010" & -- | 00 01 02 |     | 02 00 00 |   | (0*2)+(1*3)+(2*4)
    b"0001_0000" & b"0001_0001" & b"0001_0010" & -- | 16 17 18 |  *  | 03 00 00 | = |
    b"0010_0000" & b"0010_0001" & b"0010_0010";  -- | 32 33 34 |     | 04 00 00 |   |
@@ -36,7 +36,6 @@ architecture tb of Datapath_tb is
          i_MAT_A          : in std_logic_vector(p_ROWS * p_COLS * p_WIDTH - 1 downto 0);
          i_MAT_B          : in std_logic_vector(p_ROWS * p_COLS * p_WIDTH - 1 downto 0);
          i_MAT_A_ADDR_ROW : in std_logic_vector(1 downto 0);
-         i_MAT_C_ADDR_COL : in std_logic_vector(1 downto 0);
          i_MAT_B_ADDR_ROW : in std_logic_vector(1 downto 0);
          o_MAT_C          : out std_logic_vector(p_WIDTH - 1 downto 0)
       );
@@ -50,7 +49,6 @@ begin
       i_MAT_B          => w_MAT_B,
       i_MAT_A_ADDR_ROW => w_MAT_A_ADDR_ROW,
       i_MAT_B_ADDR_ROW => w_MAT_B_ADDR_ROW,
-      i_MAT_C_ADDR_COL => w_MAT_C_ADDR_COL,
       o_MAT_C          => w_MAT_C
    );
    process (w_CLK)
@@ -63,15 +61,12 @@ begin
       w_RST            <= '0';
       w_MAT_A_ADDR_ROW <= b"00";
       w_MAT_B_ADDR_ROW <= b"00";
-      w_MAT_C_ADDR_COL <= b"00";
       wait for 1.5 ps;
       w_MAT_A_ADDR_ROW <= b"00";
       w_MAT_B_ADDR_ROW <= b"01";
-      w_MAT_C_ADDR_COL <= b"01";
       wait for 1.5 ps;
       w_MAT_A_ADDR_ROW <= b"00";
       w_MAT_B_ADDR_ROW <= b"10";
-      w_MAT_C_ADDR_COL <= b"10";
       wait;
    end process;
 end architecture;
