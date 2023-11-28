@@ -10,10 +10,10 @@ entity Datapath is
    );
    port (
       -- Control pins
-      i_CLK            : in std_logic;
-      i_RST            : in std_logic;
-      i_ENABLE_MAT_A_COUNTER : in std_logic;
-      i_ENABLE_MAT_B_COUNTER : in std_logic;
+      i_CLK                 : in std_logic;
+      i_RST                 : in std_logic;
+      i_ENABLE_MAT_COUNTER  : in std_logic;
+      o_FINISHED_ALL_ROUNDS : out std_logic;
       -- Data pins
       i_MAT_A : in std_logic_vector(p_ROWS * p_COLS * p_WIDTH - 1 downto 0);
       i_MAT_B : in std_logic_vector(p_ROWS * p_COLS * p_WIDTH - 1 downto 0);
@@ -78,25 +78,24 @@ architecture rtl of Datapath is
       );
    end component;
    component RoundCounter is port (
-      i_CLK            : in std_logic;
-      i_RST            : in std_logic; -- TODO: remove?
-      i_ENABLE_COUNTER : in std_logic;
-      o_COUNT          : out std_logic_vector
+      i_CLK                 : in std_logic;
+      i_RST                 : in std_logic; -- TODO: remove?
+      i_ENABLE_COUNTER      : in std_logic;
+      o_FINISHED_ALL_ROUNDS : out std_logic;
+      o_COUNT_A             : out std_logic_vector := "00";
+      o_COUNT_B             : out std_logic_vector := "00"
       );
    end component;
 begin
    u_MAT_A_ROW : RoundCounter port map(
-      i_CLK            => i_CLK,
-      i_RST            => i_RST, -- TODO: uncouple this
-      i_ENABLE_COUNTER => i_ENABLE_MAT_A_COUNTER,
-      o_COUNT          => w_MAT_A_ROW
+      i_CLK                 => i_CLK,
+      i_RST                 => i_RST, -- TODO: uncouple this
+      i_ENABLE_COUNTER      => i_ENABLE_MAT_COUNTER,
+      o_FINISHED_ALL_ROUNDS => o_FINISHED_ALL_ROUNDS,
+      o_COUNT_A             => w_MAT_A_ROW,
+      o_COUNT_B             => w_MAT_B_ROW
    );
-   u_MAT_B_ROW : RoundCounter port map(
-      i_CLK            => i_CLK,
-      i_RST            => i_RST, -- TODO: uncouple this
-      i_ENABLE_COUNTER => i_ENABLE_MAT_B_COUNTER,
-      o_COUNT          => w_MAT_B_ROW
-   );
+
    --
    w_ELE_A0 <= w_ELE_A(23 downto 16);
    w_ELE_A1 <= w_ELE_A(15 downto 8);

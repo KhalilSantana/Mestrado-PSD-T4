@@ -6,9 +6,9 @@ entity Controller is
       i_CLK : in std_logic;
       i_RST : in std_logic;
       --
-      o_ENABLE_MAT_A_COUNTER : out std_logic                    := '0';
-      o_ENABLE_MAT_B_COUNTER : out std_logic                    := '0';
-      o_RDY                  : out std_logic
+      i_FINISHED_ALL_ROUNDS : in std_logic;
+      o_ENABLE_MAT_COUNTER  : out std_logic := '0';
+      o_RDY                 : out std_logic
    );
 end entity;
 architecture rtl of Controller is
@@ -54,12 +54,8 @@ begin
       end case;
    end process;
    -- Output Function
-   o_ENABLE_MAT_A_COUNTER <=
-      '1' when (r_STATE = s_ELE_2) or (r_STATE = s_ELE_5) or (r_STATE = s_ELE_8) else
-      '0';
-   o_ENABLE_MAT_B_COUNTER <=
+   o_ENABLE_MAT_COUNTER <=
       '0' when (r_STATE = s_START) or (r_STATE = s_END) else
       '1';
-   o_RDY <= '1' when r_STATE = s_END else
-      '0';
+   o_RDY <= i_FINISHED_ALL_ROUNDS;
 end architecture;
