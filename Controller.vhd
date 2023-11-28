@@ -6,6 +6,7 @@ entity Controller is
       i_CLK : in std_logic;
       i_RST : in std_logic;
       --
+      i_START               : in std_logic;
       i_FINISHED_ALL_ROUNDS : in std_logic;
       o_ENABLE_MAT_COUNTER  : out std_logic := '0';
       o_RDY                 : out std_logic
@@ -32,10 +33,15 @@ begin
       end if;
    end process;
    -- Next State Function
-   process (r_STATE)
+   process (r_STATE, i_START, i_RST)
    begin
       case r_STATE is
-         when s_START => w_NEXT <= s_ELE_0;
+         when s_START =>
+            if i_START = '1' then
+               w_NEXT <= s_ELE_0;
+            else
+               w_NEXT <= s_START;
+            end if;
             --
          when s_ELE_0 => w_NEXT <= s_ELE_1;
          when s_ELE_1 => w_NEXT <= s_ELE_2;
@@ -49,7 +55,11 @@ begin
          when s_ELE_7 => w_NEXT <= s_ELE_8;
          when s_ELE_8 => w_NEXT <= s_END;
             --
-         when s_END  => w_NEXT  <= s_START;
+         when s_END =>
+            if i_RST = '1' then
+               w_NEXT      <= s_START;
+            else w_NEXT <= s_END;
+            end if;
          when others => w_NEXT <= s_START;
       end case;
    end process;

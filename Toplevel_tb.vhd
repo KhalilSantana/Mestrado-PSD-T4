@@ -10,6 +10,7 @@ entity Toplevel_tb is
 end entity;
 architecture tb of Toplevel_tb is
    signal w_CLK, w_RST : std_logic := '1';
+   signal w_START      : std_logic := '0';
    signal w_RDY        : std_logic := '0';
    signal w_MAT_C      : std_logic_vector(p_ROWS * p_COLS * p_WIDTH - 1 downto 0);
    signal w_MAT_A      : std_logic_vector(8 * 9 - 1 downto 0) :=
@@ -29,9 +30,10 @@ architecture tb of Toplevel_tb is
       );
       port (
          -- Control pins
-         i_CLK : in std_logic;
-         i_RST : in std_logic;
-         o_RDY : out std_logic;
+         i_CLK   : in std_logic;
+         i_RST   : in std_logic;
+         o_RDY   : out std_logic;
+         i_START : in std_logic;
          -- Data pins
          i_MAT_A : in std_logic_vector(p_ROWS * p_COLS * p_WIDTH - 1 downto 0);
          i_MAT_B : in std_logic_vector(p_ROWS * p_COLS * p_WIDTH - 1 downto 0);
@@ -45,6 +47,7 @@ begin
       i_RST => w_RST,
       o_RDY => w_RDY,
       --
+      i_START => w_START,
       i_MAT_A => w_MAT_A,
       i_MAT_B => w_MAT_B,
       o_MAT_C => w_MAT_C
@@ -56,6 +59,9 @@ begin
    process
    begin
       w_RST <= '0';
-      wait for 20 ps;
+      wait for 5 ps;
+      w_START <= '1';
+      wait for 25 ps;
+      wait;
    end process;
 end architecture;

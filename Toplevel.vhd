@@ -9,9 +9,10 @@ entity Toplevel is
    );
    port (
       -- Control pins
-      i_CLK : in std_logic;
-      i_RST : in std_logic;
-      o_RDY : out std_logic;
+      i_CLK   : in std_logic;
+      i_RST   : in std_logic;
+      o_RDY   : out std_logic;
+      i_START : in std_logic;
       -- Data pins
       i_MAT_A : in std_logic_vector(p_ROWS * p_COLS * p_WIDTH - 1 downto 0);
       i_MAT_B : in std_logic_vector(p_ROWS * p_COLS * p_WIDTH - 1 downto 0);
@@ -29,6 +30,7 @@ architecture rtl of Toplevel is
          i_CLK : in std_logic;
          i_RST : in std_logic;
          --
+         i_START               : in std_logic;
          i_FINISHED_ALL_ROUNDS : in std_logic;
          o_ENABLE_MAT_COUNTER  : out std_logic := '0';
          o_RDY                 : out std_logic
@@ -58,6 +60,7 @@ begin
       i_RST => i_RST,
       o_RDY => o_RDY,
       --
+      i_START               => i_START,
       i_FINISHED_ALL_ROUNDS => w_FINISHED_ALL_ROUNDS,
       o_ENABLE_MAT_COUNTER  => w_ENABLE_MAT_COUNTER
    );
