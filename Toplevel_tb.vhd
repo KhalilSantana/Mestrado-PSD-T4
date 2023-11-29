@@ -62,6 +62,14 @@ begin
       wait for 5 ps;
       w_START <= '1';
       wait for 25 ps;
+      assert  w_MAT_C = -- TODO: Figure out why this assert fails even though the output matches
+      -- b"000010110000101000000111001001100011010000101110010000010101111001010101";
+      b"0000_1011" & b"0000_1010" & b"0000_0111" &
+      b"0010_0110" & b"0011_0100" & b"0010_1110" &
+      b"0100_0001" & b"0101_1110" & b"0101_0101";
+         report "Output matrix doesn't match!"
+         severity error;
+      
       wait;
    end process;
 end architecture;
