@@ -8,8 +8,8 @@ entity RoundCounter is port (
    i_RST                 : in std_logic; -- TODO: remove?
    i_ENABLE_COUNTER      : in std_logic;
    o_FINISHED_ALL_ROUNDS : out std_logic;
-   o_COUNT_A             : out std_logic_vector := "00";
-   o_COUNT_B             : out std_logic_vector := "00"
+   o_COUNT_A             : out std_logic_vector (1 downto 0) := "00";
+   o_COUNT_B             : out std_logic_vector (1 downto 0) := "00"
 );
 end entity;
 
