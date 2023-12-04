@@ -1,25 +1,9 @@
 import sys
 
-def format_binary_sequence(binary_sequence):
-    formatted_sequence = ''
-    for i, bit in enumerate(binary_sequence, 1):
-        formatted_sequence += bit
-        if i % 4 == 0 and i % 8 != 0:
-            formatted_sequence += '_'
-        elif i % 8 == 0:
-            formatted_sequence += '|'
-    return formatted_sequence
-
-def binary_to_decimal(binary_str):
-    decimal_values = [int(binary_str[i:i+8], 2) for i in range(0, len(binary_str), 8)]
+def hex_to_decimal(hex_str):
+    decimal_values = [int(hex_str[i:i+2], 16) for i in range(0, len(hex_str), 2)]
     return '|'.join(map(str, decimal_values))
 
-# Example usage
-input_binary = sys.argv[1]
-result = binary_to_decimal(input_binary)
+input_hex = sys.argv[1]
+result = hex_to_decimal(input_hex)
 print(result)
-
-# Example usage
-#input_sequence = sys.argv[1]
-#formatted_result = format_binary_sequence(input_sequence)
-#print(formatted_result)

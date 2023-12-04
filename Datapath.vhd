@@ -43,19 +43,6 @@ architecture rtl of Datapath is
          o_Q        : out std_logic_vector(p_WIDTH * p_COLS - 1 downto 0)
       );
    end component;
-   component Accumulator is
-      generic (
-         p_WIDTH : integer := 8;
-         p_ROWS  : integer := 3;
-         p_COLS  : integer := 3
-      );
-      port (
-         i_CLK : in std_logic;
-         i_RST : in std_logic;
-         i_D   : in std_logic_vector(p_WIDTH - 1 downto 0);
-         o_Q   : out std_logic_vector(p_WIDTH - 1 downto 0)
-      );
-   end component;
    component MatrixRegisterSingle is
       generic (
          p_WIDTH : integer := 8;
@@ -79,7 +66,7 @@ architecture rtl of Datapath is
    end component;
    component RoundCounter is port (
       i_CLK                 : in std_logic;
-      i_RST                 : in std_logic; -- TODO: remove?
+      i_RST                 : in std_logic;
       i_ENABLE_COUNTER      : in std_logic;
       o_FINISHED_ALL_ROUNDS : out std_logic;
       o_COUNT_A             : out std_logic_vector := "00";
@@ -87,7 +74,7 @@ architecture rtl of Datapath is
       );
    end component;
 begin
-   u_MAT_A_ROW : RoundCounter port map(
+   u_RoundCounter : RoundCounter port map(
       i_CLK                 => i_CLK,
       i_RST                 => i_RST, -- TODO: uncouple this
       i_ENABLE_COUNTER      => i_ENABLE_MAT_COUNTER,
@@ -104,18 +91,31 @@ begin
    w_ELE_B0 <= w_ELE_B(23 downto 16);
    w_ELE_B1 <= w_ELE_B(15 downto 8);
    w_ELE_B2 <= w_ELE_B(7 downto 0);
-   u_MAT_A : MatrixRegister port map(
+   u_MAT_A : MatrixRegister
+   generic map(
+      p_WIDTH => p_WIDTH,
+      p_COLS  => p_COLS,
+      p_ROWS  => p_ROWS
+   )
+   port map(
       i_CLK      => i_CLK,
       i_RST      => i_RST,
       i_ADDR_ROW => w_MAT_A_ROW,
       i_D        => i_MAT_A,
       o_Q        => w_ELE_A
    );
-   u_Transpose_MAT : MatrixTranspose port map(
+   u_Transpose_MAT : MatrixTranspose
+   port map(
       i_MAT            => i_MAT_B,
       o_MAT_TRANSPOSED => w_MAT_B_TRANSPOSED
    );
-   u_MAT_B : MatrixRegister port map(
+   u_MAT_B : MatrixRegister
+   generic map(
+      p_WIDTH => p_WIDTH,
+      p_COLS  => p_COLS,
+      p_ROWS  => p_ROWS
+   )
+   port map(
       i_CLK      => i_CLK,
       i_RST      => i_RST,
       i_ADDR_ROW => w_MAT_B_ROW,
@@ -131,7 +131,13 @@ begin
 
    w_ADDERS_OUT <= std_logic_vector(unsigned(w_MULT_A0) + unsigned(w_MULT_A1) + unsigned(w_MULT_A2));
 
-   u_MAT_C : MatrixRegisterSingle port map(
+   u_MAT_C : MatrixRegisterSingle
+   generic map(
+      p_WIDTH => p_WIDTH,
+      p_COLS  => p_COLS,
+      p_ROWS  => p_ROWS
+   )
+   port map(
       i_CLK      => i_CLK,
       i_RST      => i_RST,
       i_ADDR_ROW => w_MAT_A_ROW,
